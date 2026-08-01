@@ -1,1 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Friendship Day - Kuchupuchu Rasmalai</title>
+    <style>
+        /* Reset and basic styling */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
+        body {
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: sans-serif;
+        }
+
+        /* Container to hold both the background image and the video */
+        .scrapbook-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px; /* Adjust based on your preferred max size */
+            margin: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            /* Ensures the container scales exactly to the image's proportions */
+            display: flex; 
+        }
+
+        /* The scrapbook background image */
+        .frame-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            z-index: 1;
+        }
+
+        /* The video wrapper positioned over the cutout */
+        .video-wrapper {
+            position: absolute;
+            /* 
+               ADJUST THESE VALUES: 
+               These percentages control exactly where the video sits on the image. 
+               Tweak them until the video perfectly aligns with the pink box.
+            */
+            top: 36.5%; 
+            left: 17%;
+            width: 66%; 
+            
+            /* Forces a perfect 16:9 aspect ratio */
+            aspect-ratio: 16 / 9; 
+            z-index: 2; /* Keeps video above the background if the image isn't transparent */
+            
+            /* Box styling for a clean look */
+            background-color: #000;
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        /* The video element itself */
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the video fills the 16:9 box without stretching */
+            display: block;
+            cursor: pointer;
+        }
+
+        /* Optional: Add a subtle hover effect */
+        .video-wrapper:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transform: scale(1.01);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scrapbook-container">
+        <!-- Image from your assets folder -->
+        <img src="assets/img/frame.png" alt="Happy Friendship Day Frame" class="frame-img">
+        
+        <!-- Video perfectly aligned in 16:9 ratio -->
+        <div class="video-wrapper">
+            <video id="friendship-video" src="assets/video/memory.mp4" loop playsinline></video>
+        </div>
+    </div>
+
+    <script>
+        // Simple JavaScript to handle play/pause on click
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('friendship-video');
+
+            // Play or pause the video when clicked
+            video.addEventListener('click', () => {
+                if (video.paused) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            });
+
+            // Optional: Auto-play the video slightly delayed to ensure smooth loading
+            setTimeout(() => {
+                video.play().catch(error => {
+                    console.log("Autoplay was prevented by the browser. User must click to play.");
+                });
+            }, 500);
+        });
+    </script>
+
+</body>
+</html>
